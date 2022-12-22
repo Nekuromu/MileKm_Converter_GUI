@@ -5,11 +5,15 @@ window.title("Mile to Km Converter")
 window.minsize(width=300, height=150)
 window.config(padx=20, pady=20)
 
+round_state = IntVar()
+
 
 def button_pressed():
     if miles_entry.get() == '' or not miles_entry.get().isdigit():
         return
-    km = round(float(miles_entry.get()) * 1.60934)
+    km = float(miles_entry.get()) * 1.60934
+    if round_state.get() == 0:
+        km = round(km)
 
     label3.config(text=f"{km}")
 
@@ -31,5 +35,11 @@ label4.grid(column=3, row=1)
 
 convert_button = Button(text="Calculate", command=button_pressed)
 convert_button.grid(column=1, row=2)
+
+radio_button1 = Radiobutton(text="Rounded       ", value=0, variable=round_state)
+radio_button1.grid(column=4, row=0)
+
+radio_button2 = Radiobutton(text="Not Rounded", value=1, variable=round_state)
+radio_button2.grid(column=4, row=1)
 
 window.mainloop()
